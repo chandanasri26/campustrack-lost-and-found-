@@ -1,0 +1,16 @@
+{
+  "typescript.tsdk": "./frontend/node_modules/typescript/lib",
+  "typescript.enablePromptUseWorkspaceTsdk": true,
+  "java.project.sourcePaths": [
+    "backend/src/main/java"
+  ],
+  "java.configuration.updateBuildConfiguration": "automatic",
+  "java.import.gradle.enabled": false,
+  "java.import.maven.enabled": true,
+  "java.server.launchMode": "Standard",
+  "java.compile.nullAnalysis.mode": "automatic",
+  "css.validate": false,
+  "less.validate": false,
+  "scss.validate": false,
+  "liveServer.settings.port": 5501
+}

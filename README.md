@@ -9,6 +9,7 @@
 - View my posts
 
 ### Admin
+- Register/Login
 - View all users/items
 - Delete posts
 - Block/unblock users

@@ -1,20 +1,21 @@
-FROM maven:3.9.9-eclipse-temurin-21 AS build
-
+# Build Layer using stabilized Java 21 environment
+FROM maven:3.9.6-eclipse-temurin-21 AS build
 WORKDIR /app
 
+# Cache dependencies to speed up future builds on Render
 COPY pom.xml .
-COPY src ./src
+RUN mvn dependency:go-offline
 
+# Copy source and compile application
+COPY src ./src
 RUN mvn clean package -DskipTests
 
-FROM eclipse-temurin:25-jre
-
+# Execution Layer
+FROM eclipse-temurin:21-jre-jammy
 WORKDIR /app
-
-COPY --from=build /app/target/lostandfound-0.0.1-SNAPSHOT.jar app.jar
+COPY --from=build /app/target/*.jar app.jar
 
 EXPOSE 8080
 
-ENV PORT=8080
-
-ENTRYPOINT ["java","-jar","app.jar"]
+# Run with production profile active
+ENTRYPOINT ["java", "-jar", "app.jar", "--spring.profiles.active=prod"]

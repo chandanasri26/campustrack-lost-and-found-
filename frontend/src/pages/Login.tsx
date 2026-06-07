@@ -27,7 +27,8 @@ export default function Login() {
             login(data.token, data.user);
             navigate(data.user.role === "admin" ? "/admin" : "/dashboard");
         } catch (err: any) {
-            setError(err.response?.data?.error || "Login failed. Please try again.");
+            const message = err.response?.data?.error || err.message || "Login failed. Please try again.";
+            setError(message);
         } finally {
             setLoading(false);
         }
@@ -94,10 +95,20 @@ export default function Login() {
                             </div>
                         </CardContent>
                         <CardFooter className="flex flex-col gap-3 pt-2">
-                            <Button type="submit" className="w-full" disabled={loading}>
-                                {loading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-                                Sign In
-                            </Button>
+                            <button
+                                type="submit"
+                                disabled={loading}
+                                className="w-full rounded-xl bg-sky-600 px-4 py-3 text-sm font-semibold text-white transition hover:bg-sky-700 disabled:cursor-not-allowed disabled:opacity-60"
+                            >
+                                {loading ? (
+                                    <span className="inline-flex items-center justify-center gap-2">
+                                        <Loader2 className="h-4 w-4 animate-spin" />
+                                        Signing in...
+                                    </span>
+                                ) : (
+                                    "Sign In"
+                                )}
+                            </button>
                             <p className="text-sm text-muted-foreground text-center">
                                 Don't have an account?{" "}
                                 <button

@@ -11,18 +11,32 @@ public class UserDto {
     private String studentId;
     private String role;
     private boolean isBlocked;
+    private boolean verifiedStudent;
+    private String verificationStatus;
+    private Integer verificationScore;
+    private boolean livenessPassed;
+    private boolean verifiedBadge;
+    private Integer trustScore;
+    private LocalDateTime verificationTimestamp;
     private LocalDateTime createdAt;
 
     public UserDto() {
     }
 
-    public UserDto(String id, String name, String email, String studentId, String role, boolean isBlocked, LocalDateTime createdAt) {
+    public UserDto(String id, String name, String email, String studentId, String role, boolean isBlocked, boolean verifiedStudent, String verificationStatus, Integer verificationScore, boolean livenessPassed, boolean verifiedBadge, Integer trustScore, LocalDateTime verificationTimestamp, LocalDateTime createdAt) {
         this.id = id;
         this.name = name;
         this.email = email;
         this.studentId = studentId;
         this.role = role;
         this.isBlocked = isBlocked;
+        this.verifiedStudent = verifiedStudent;
+        this.verificationStatus = verificationStatus;
+        this.verificationScore = verificationScore;
+        this.livenessPassed = livenessPassed;
+        this.verifiedBadge = verifiedBadge;
+        this.trustScore = trustScore;
+        this.verificationTimestamp = verificationTimestamp;
         this.createdAt = createdAt;
     }
 
@@ -74,6 +88,62 @@ public class UserDto {
         isBlocked = blocked;
     }
 
+    public boolean isVerifiedStudent() {
+        return verifiedStudent;
+    }
+
+    public void setVerifiedStudent(boolean verifiedStudent) {
+        this.verifiedStudent = verifiedStudent;
+    }
+
+    public String getVerificationStatus() {
+        return verificationStatus;
+    }
+
+    public void setVerificationStatus(String verificationStatus) {
+        this.verificationStatus = verificationStatus;
+    }
+
+    public Integer getVerificationScore() {
+        return verificationScore;
+    }
+
+    public void setVerificationScore(Integer verificationScore) {
+        this.verificationScore = verificationScore;
+    }
+
+    public boolean isLivenessPassed() {
+        return livenessPassed;
+    }
+
+    public void setLivenessPassed(boolean livenessPassed) {
+        this.livenessPassed = livenessPassed;
+    }
+
+    public boolean isVerifiedBadge() {
+        return verifiedBadge;
+    }
+
+    public void setVerifiedBadge(boolean verifiedBadge) {
+        this.verifiedBadge = verifiedBadge;
+    }
+
+    public Integer getTrustScore() {
+        return trustScore;
+    }
+
+    public void setTrustScore(Integer trustScore) {
+        this.trustScore = trustScore;
+    }
+
+    public LocalDateTime getVerificationTimestamp() {
+        return verificationTimestamp;
+    }
+
+    public void setVerificationTimestamp(LocalDateTime verificationTimestamp) {
+        this.verificationTimestamp = verificationTimestamp;
+    }
+
     public LocalDateTime getCreatedAt() {
         return createdAt;
     }
@@ -90,6 +160,13 @@ public class UserDto {
                 user.getStudentId(),
                 user.getRole().name().toLowerCase(),
                 user.isBlocked(),
+                user.isVerifiedStudent(),
+                user.getVerificationStatus(),
+                user.getVerificationScore(),
+                user.isLivenessPassed(),
+                user.isVerifiedBadge(),
+                user.getTrustScore(),
+                user.getVerificationTimestamp(),
                 user.getCreatedAt());
     }
 }

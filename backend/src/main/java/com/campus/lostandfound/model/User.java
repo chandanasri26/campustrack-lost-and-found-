@@ -25,6 +25,14 @@ public class User implements UserDetails {
     private String studentId;
     private UserRole role = UserRole.STUDENT;
     private boolean blocked = false;
+    private boolean verifiedStudent = false;
+    private String verificationStatus = "unverified";
+    private Integer verificationScore = 0;
+    private boolean livenessPassed = false;
+    private boolean verifiedBadge = false;
+    private Integer trustScore = 0;
+    private Integer verificationAttempts = 0;
+    private LocalDateTime verificationTimestamp;
     private LocalDateTime createdAt = LocalDateTime.now();
 
     public User() {}
@@ -83,6 +91,70 @@ public class User implements UserDetails {
 
     public void setBlocked(boolean blocked) {
         this.blocked = blocked;
+    }
+
+    public boolean isVerifiedStudent() {
+        return verifiedStudent;
+    }
+
+    public void setVerifiedStudent(boolean verifiedStudent) {
+        this.verifiedStudent = verifiedStudent;
+    }
+
+    public String getVerificationStatus() {
+        return verificationStatus;
+    }
+
+    public void setVerificationStatus(String verificationStatus) {
+        this.verificationStatus = verificationStatus;
+    }
+
+    public Integer getVerificationScore() {
+        return verificationScore;
+    }
+
+    public void setVerificationScore(Integer verificationScore) {
+        this.verificationScore = verificationScore;
+    }
+
+    public boolean isLivenessPassed() {
+        return livenessPassed;
+    }
+
+    public void setLivenessPassed(boolean livenessPassed) {
+        this.livenessPassed = livenessPassed;
+    }
+
+    public boolean isVerifiedBadge() {
+        return verifiedBadge;
+    }
+
+    public void setVerifiedBadge(boolean verifiedBadge) {
+        this.verifiedBadge = verifiedBadge;
+    }
+
+    public Integer getTrustScore() {
+        return trustScore;
+    }
+
+    public void setTrustScore(Integer trustScore) {
+        this.trustScore = trustScore;
+    }
+
+    public Integer getVerificationAttempts() {
+        return verificationAttempts;
+    }
+
+    public void setVerificationAttempts(Integer verificationAttempts) {
+        this.verificationAttempts = verificationAttempts;
+    }
+
+    public LocalDateTime getVerificationTimestamp() {
+        return verificationTimestamp;
+    }
+
+    public void setVerificationTimestamp(LocalDateTime verificationTimestamp) {
+        this.verificationTimestamp = verificationTimestamp;
     }
 
     public LocalDateTime getCreatedAt() {

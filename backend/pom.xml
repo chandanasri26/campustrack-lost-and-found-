@@ -73,11 +73,9 @@
             <scope>runtime</scope>
         </dependency>
 
-        <!-- Embedded MongoDB for local development fallback -->
         <dependency>
-            <groupId>de.flapdoodle.embed</groupId>
-            <artifactId>de.flapdoodle.embed.mongo</artifactId>
-            <version>4.15.0</version>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-actuator</artifactId>
         </dependency>
 
         <!-- Test -->

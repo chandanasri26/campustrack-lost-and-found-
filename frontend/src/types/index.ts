@@ -6,6 +6,13 @@ export interface User {
     role: "student" | "admin";
     isBlocked: boolean;
     createdAt: string;
+    verificationScore?: number;
+    verificationStatus?: "verified" | "review" | "failed";
+    verificationTimestamp?: string;
+    verifiedBadge?: boolean;
+    verifiedStudent?: boolean;
+    trustScore?: number;
+    verificationAttempts?: number;
 }
 
 export interface Item {

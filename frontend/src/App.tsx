@@ -11,6 +11,7 @@ import MyPosts from "@/pages/Myposts";
 import AdminDashboard from "@/pages/AdminDashboard";
 import ItemDetails from "@/pages/ItemDetails";
 import Chat from "@/pages/Chat";
+import Profile from "@/pages/Profile";
 
 export default function App() {
     return (
@@ -23,7 +24,22 @@ export default function App() {
                 <Route path="/register" component={Register} />
                 <Route path="/dashboard" component={Dashboard} />
                 <Route path="/items/:id" component={ItemDetails} />
-                <Route path="/chat" component={Chat} />
+                <Route
+                    path="/chat"
+                    component={() => (
+                        <ProtectedRoute>
+                            <Chat />
+                        </ProtectedRoute>
+                    )}
+                />
+                <Route
+                    path="/profile"
+                    component={() => (
+                        <ProtectedRoute>
+                            <Profile />
+                        </ProtectedRoute>
+                    )}
+                />
                 <Route
                     path="/post-item"
                     component={() => (

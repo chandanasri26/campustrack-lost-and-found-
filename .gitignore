@@ -1,0 +1,25 @@
+# Java
+backend/target/
+
+# Node
+frontend/node_modules/
+
+# Vite build
+frontend/dist/
+
+# Vite cache
+frontend/.vite/
+
+# Environment files
+.env
+.env.*
+
+# Uploads
+backend/uploads/
+uploads/
+
+# macOS
+.DS_Store
+
+# Logs
+*.log

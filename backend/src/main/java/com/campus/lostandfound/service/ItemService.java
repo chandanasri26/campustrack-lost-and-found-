@@ -89,6 +89,7 @@ public class ItemService {
         item.setCategory(request.getCategory());
         item.setType(request.getType());
         item.setLocation(request.getLocation());
+        item.setTags(request.getTags() != null ? request.getTags() : new ArrayList<>());
         item.setImageUrl(request.getImageUrl());
         item.setApproved(false);
         item.setUserId(currentUser.getId());

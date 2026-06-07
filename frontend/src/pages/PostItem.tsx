@@ -79,7 +79,57 @@ export default function PostItem() {
         }
         setLoading(true);
         try {
-            await api.post("/items", form);
+            const tags = form.tags
+                .split(",")
+                .map((tag) => tag.trim())
+                .filter(Boolean);
+            
+            const response = await api.post("/items", { ...form, tags });
+            const postedItem = response.data;
+
+            // Notify user about similar reported items of the opposite type
+            try {
+                const searchType = form.type === "lost" ? "found" : "lost";
+                const opposites = await api.get("/items", {
+                    params: {
+                        type: searchType,
+                        category: form.category,
+                        approved: "true"
+                    }
+                });
+
+                // Find items that have matching words in the title or matching tags
+                const postedWords = form.title.toLowerCase().split(/\s+/).filter(w => w.length > 2);
+                const matchingItems = opposites.data.filter((item: any) => {
+                    const titleWords = item.title.toLowerCase().split(/\s+/);
+                    const hasWordMatch = postedWords.some((word: string) => titleWords.includes(word));
+                    const hasTagMatch = item.tags?.some((t: string) => tags.includes(t.trim()));
+                    return hasWordMatch || hasTagMatch;
+                });
+
+                if (matchingItems.length > 0) {
+                    // Save matches in local storage notifications
+                    const notificationsKey = "notifications_list";
+                    const existingNotifications = JSON.parse(localStorage.getItem(notificationsKey) || "[]");
+                    const newNotification = {
+                        id: Math.random().toString(36).substring(7),
+                        title: `Similar ${form.type === "lost" ? "Found" : "Lost"} Item Detected!`,
+                        message: `We found ${matchingItems.length} similar reported ${form.type === "lost" ? "found" : "lost"} ${matchingItems.length === 1 ? "item" : "items"} matching "${form.title}" in ${form.category}.`,
+                        itemId: matchingItems[0].id,
+                        timestamp: new Date().toISOString(),
+                        read: false
+                    };
+                    localStorage.setItem(notificationsKey, JSON.stringify([newNotification, ...existingNotifications]));
+
+                    toast({
+                        title: "Similar Items Detected! 🔍",
+                        description: `We found ${matchingItems.length} similar ${form.type === "lost" ? "found" : "lost"} items matching your description. Check the notification bell above.`,
+                    });
+                }
+            } catch (matchErr) {
+                console.error("Match check failed:", matchErr);
+            }
+
             toast({ title: "Item posted!", description: "Your item has been added to the board." });
             navigate("/my-posts");
         } catch (err: any) {
@@ -109,7 +159,7 @@ export default function PostItem() {
                                 </Alert>
                             )}
 
-                            <div className="grid gap-6 lg:grid-cols-[1fr_220px]">
+                            <div className="grid gap-6 lg:grid-cols-[1fr_320px]">
                                 <div className="space-y-4">
                                     <div className="space-y-2">
                                         <Label htmlFor="title">Item name</Label>
@@ -129,13 +179,29 @@ export default function PostItem() {
                                     </div>
 
                                     <div className="space-y-2">
+                                        <Label>Report Type</Label>
+                                        <div className="grid grid-cols-2 gap-2">
+                                            {(["lost", "found"] as const).map((typeOption) => (
+                                                <button
+                                                    key={typeOption}
+                                                    type="button"
+                                                    onClick={() => setForm({ ...form, type: typeOption })}
+                                                    className={`rounded-xl border py-2.5 text-sm font-semibold transition ${form.type === typeOption ? "border-sky-600 bg-sky-600 text-white shadow-md shadow-sky-500/10" : "border-slate-200 bg-white text-slate-700 hover:border-slate-300"}`}
+                                                >
+                                                    {typeOption === "lost" ? "Lost Item" : "Found Item"}
+                                                </button>
+                                            ))}
+                                        </div>
+                                    </div>
+
+                                    <div className="space-y-2">
                                         <Label htmlFor="description">Description</Label>
                                         <Textarea id="description" name="description" placeholder="Describe the item in detail..." value={form.description} onChange={handleChange} rows={5} />
                                     </div>
                                 </div>
 
                                 <div className="space-y-4">
-                                    <div className="grid gap-4 sm:grid-cols-2">
+                                    <div className="grid gap-4">
                                         <div className="space-y-2">
                                             <Label htmlFor="location">Location</Label>
                                             <Input id="location" name="location" placeholder="e.g. Library" value={form.location} onChange={handleChange} />

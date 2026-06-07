@@ -35,6 +35,10 @@ public class AuthService {
         } catch (IllegalArgumentException ignored) {
         }
 
+        if (userRole == UserRole.STUDENT && !request.getEmail().toLowerCase().endsWith("@mlrit.ac.in")) {
+            throw new IllegalArgumentException("Only students with a college email ending in @mlrit.ac.in are allowed to register.");
+        }
+
         User user = new User();
         user.setName(request.getName());
         user.setEmail(request.getEmail());
@@ -58,6 +62,10 @@ public class AuthService {
 
         User user = userRepository.findByEmail(request.getEmail())
                 .orElseThrow(() -> new IllegalArgumentException("User not found"));
+
+        if (user.getRole() == UserRole.STUDENT && !user.getEmail().toLowerCase().endsWith("@mlrit.ac.in")) {
+            throw new IllegalArgumentException("Only students with a college email ending in @mlrit.ac.in are allowed access.");
+        }
 
         if (user.isBlocked()) {
             throw new IllegalArgumentException("Your account has been blocked. Contact an administrator.");

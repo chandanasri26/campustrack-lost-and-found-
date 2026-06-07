@@ -24,6 +24,10 @@ export default function Register() {
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         setError("");
+        if (form.role === "student" && !form.email.toLowerCase().endsWith("@mlrit.ac.in")) {
+            setError("Only college email (ending with @mlrit.ac.in) is allowed for students.");
+            return;
+        }
         if (form.password.length < 6) {
             setError("Password must be at least 6 characters.");
             return;

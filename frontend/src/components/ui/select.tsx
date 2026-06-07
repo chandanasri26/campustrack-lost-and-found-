@@ -53,7 +53,7 @@ export function SelectContent({ className = "", children }: { className?: string
     const ctx = useContext(SelectContext);
     if (!ctx || !ctx.open) return null;
     return (
-        <div className={`absolute z-10 mt-2 w-full rounded-xl border border-slate-200 bg-white shadow-lg ${className}`}>
+        <div className={`absolute z-50 mt-2 w-full rounded-xl border border-slate-200 bg-white shadow-lg max-h-60 overflow-y-auto ${className}`}>
             {children}
         </div>
     );

@@ -7,6 +7,7 @@ import com.campus.lostandfound.model.User;
 import com.campus.lostandfound.repository.ItemRepository;
 import com.campus.lostandfound.repository.ReportRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -20,7 +21,7 @@ public class ReportService {
     private final ReportRepository reportRepository;
     private final ItemRepository itemRepository;
 
-    public ReportDto fileReport(String itemId, CreateReportRequest request, User currentUser) {
+    public ReportDto fileReport(@NonNull String itemId, CreateReportRequest request, User currentUser) {
         if (!itemRepository.existsById(itemId)) {
             throw new IllegalArgumentException("Item not found");
         }
@@ -38,7 +39,7 @@ public class ReportService {
                 .stream().map(ReportDto::from).collect(Collectors.toList());
     }
 
-    public ReportDto resolveReport(String id, String adminComment) {
+    public ReportDto resolveReport(@NonNull String id, String adminComment) {
         Report report = reportRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Report not found"));
         report.setStatus("resolved");

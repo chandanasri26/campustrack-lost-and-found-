@@ -19,6 +19,7 @@ import org.springframework.data.mongodb.core.aggregation.GroupOperation;
 import org.springframework.data.mongodb.core.aggregation.ProjectionOperation;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
+import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
@@ -67,7 +68,8 @@ public class ItemService {
         }
 
         if (!criteriaList.isEmpty()) {
-            query.addCriteria(new Criteria().andOperator(criteriaList.toArray(new Criteria[0])));
+            Criteria[] criteriaArray = criteriaList.toArray(Criteria[]::new);
+            query.addCriteria(new Criteria().andOperator(criteriaArray));
         }
         query.with(Sort.by(Sort.Direction.DESC, "createdAt"));
 
@@ -76,7 +78,7 @@ public class ItemService {
                 .collect(Collectors.toList());
     }
 
-    public ItemDto getItem(String id) {
+    public ItemDto getItem(@NonNull String id) {
         Item item = itemRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Item not found"));
         return ItemDto.from(item);
@@ -99,7 +101,7 @@ public class ItemService {
         return ItemDto.from(itemRepository.save(item));
     }
 
-    public ItemDto updateItem(String id, UpdateItemRequest request, User currentUser) {
+    public ItemDto updateItem(@NonNull String id, UpdateItemRequest request, User currentUser) {
         Item item = itemRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Item not found"));
 
@@ -129,7 +131,7 @@ public class ItemService {
         return ItemDto.from(itemRepository.save(item));
     }
 
-    public void deleteItem(String id, User currentUser) {
+    public void deleteItem(@NonNull String id, User currentUser) {
         Item item = itemRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Item not found"));
 
@@ -143,7 +145,7 @@ public class ItemService {
         itemRepository.delete(item);
     }
 
-    public ItemDto resolveItem(String id, User currentUser) {
+    public ItemDto resolveItem(@NonNull String id, User currentUser) {
         Item item = itemRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Item not found"));
 

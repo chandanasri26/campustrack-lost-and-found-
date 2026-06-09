@@ -8,6 +8,7 @@ import com.campus.lostandfound.model.User;
 import com.campus.lostandfound.repository.ItemRepository;
 import com.campus.lostandfound.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -27,14 +28,14 @@ public class AdminService {
                 .collect(Collectors.toList());
     }
 
-    public UserDto blockUser(String id) {
+    public UserDto blockUser(@NonNull String id) {
         User user = userRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("User not found"));
         user.setBlocked(true);
         return UserDto.from(userRepository.save(user));
     }
 
-    public UserDto unblockUser(String id) {
+    public UserDto unblockUser(@NonNull String id) {
         User user = userRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("User not found"));
         user.setBlocked(false);
@@ -48,13 +49,13 @@ public class AdminService {
                 .collect(Collectors.toList());
     }
 
-    public void deleteItem(String id) {
+    public void deleteItem(@NonNull String id) {
         Item item = itemRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Item not found"));
         itemRepository.delete(item);
     }
 
-    public ItemDto approveItem(String id) {
+    public ItemDto approveItem(@NonNull String id) {
         Item item = itemRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Item not found"));
         item.setApproved(true);

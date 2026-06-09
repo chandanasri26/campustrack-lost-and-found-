@@ -9,11 +9,13 @@ import com.campus.lostandfound.model.User;
 import com.campus.lostandfound.repository.MessageRepository;
 import com.campus.lostandfound.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Service;
 
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Service
@@ -24,14 +26,15 @@ public class MessageService {
     private final UserRepository userRepository;
     private final ItemService itemService;
 
-    public MessageDto sendMessage(CreateMessageRequest request, User sender) {
-        userRepository.findById(request.getReceiverId())
+    public MessageDto sendMessage(CreateMessageRequest request, @NonNull User sender) {
+        String receiverId = Objects.requireNonNull(request.getReceiverId(), "Receiver ID is required");
+        userRepository.findById(receiverId)
                 .orElseThrow(() -> new IllegalArgumentException("Receiver not found"));
 
         Message message = new Message();
         message.setItemId(request.getItemId());
         message.setSenderId(sender.getId());
-        message.setReceiverId(request.getReceiverId());
+        message.setReceiverId(receiverId);
         message.setContent(request.getContent());
         return MessageDto.from(messageRepository.save(message));
     }
@@ -56,9 +59,9 @@ public class MessageService {
         Map<String, ConversationAccumulator> threads = new LinkedHashMap<>();
 
         for (Message message : messages) {
-            String otherUserId = message.getSenderId().equals(currentUser.getId())
-                    ? message.getReceiverId()
-                    : message.getSenderId();
+            String senderId = Objects.requireNonNull(message.getSenderId(), "Message sender ID is required");
+            String receiverId = Objects.requireNonNull(message.getReceiverId(), "Message receiver ID is required");
+            String otherUserId = senderId.equals(currentUser.getId()) ? receiverId : senderId;
             String threadKey = message.getItemId() + "|" + otherUserId;
             ConversationAccumulator accumulator = threads.computeIfAbsent(threadKey, key -> {
                 User otherUser = userRepository.findById(otherUserId).orElse(null);

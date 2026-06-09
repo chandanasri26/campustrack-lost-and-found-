@@ -1,5 +1,5 @@
-# Build Layer using stabilized Java 21 environment
-FROM maven:3.9.6-eclipse-temurin-21 AS build
+# Build Layer using stabilized Java 25 environment
+FROM maven:3.9.14-eclipse-temurin-25 AS build
 WORKDIR /app
 
 # Cache dependencies to speed up future builds on Render
@@ -11,7 +11,7 @@ COPY src ./src
 RUN mvn clean package -DskipTests
 
 # Execution Layer
-FROM eclipse-temurin:21-jre-jammy
+FROM eclipse-temurin:25-jre-jammy
 WORKDIR /app
 COPY --from=build /app/target/*.jar app.jar
 

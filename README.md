@@ -205,15 +205,6 @@ Add screenshots of:
 
 ---
 
-# 👩‍💻 Author
-
-**Chandana Sri Bobbili**
-
-* GitHub: https://github.com/chandanasri26
-* LinkedIn: *Add your LinkedIn profile*
-
----
-
 # ⭐ Support
 
 If you found this project useful, please consider giving it a ⭐ on GitHub.

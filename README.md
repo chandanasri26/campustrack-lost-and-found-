@@ -205,6 +205,18 @@ Add screenshots of:
 
 ---
 
+<img width="1468" height="875" alt="image" src="https://github.com/user-attachments/assets/e0316d93-47d4-4119-a38b-b8b4586107a2" />
+<img width="1467" height="878" alt="image" src="https://github.com/user-attachments/assets/e4ebbc5c-272e-4388-815d-a7c8a41bd714" />
+<img width="1470" height="832" alt="image" src="https://github.com/user-attachments/assets/a0790b9d-3cf2-466d-9c92-bb73b4cfd69d" />
+Profile
+<img width="1470" height="831" alt="image" src="https://github.com/user-attachments/assets/1b5426c2-1b67-4944-b2de-b3cc873c6a81" />
+<img width="1470" height="879" alt="image" src="https://github.com/user-attachments/assets/dff7f6da-ca25-494b-af0c-8de9d6971367" />
+
+
+
+
+
+
 # ⭐ Support
 
 If you found this project useful, please consider giving it a ⭐ on GitHub.

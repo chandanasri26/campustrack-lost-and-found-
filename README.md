@@ -95,25 +95,219 @@ The system simplifies the recovery process and improves communication between st
 
 # 📂 Project Structure
 
+# AI Face Verification Feature for Existing Campus Lost & Found Project
+
+Implement an AI-powered Student Identity Verification feature into my existing Campus Lost & Found project without changing the current folder structure or breaking any existing functionality.
+
+## Existing Project Structure
+
+### Backend (Spring Boot)
+
 ```
-campus-lost-and-found/
-│
-├── frontend/
-│   ├── src/
-│   ├── components/
-│   ├── pages/
-│   └── public/
-│
-├── backend/
-│   ├── controller/
-│   ├── service/
-│   ├── repository/
-│   ├── model/
-│   ├── security/
-│   └── config/
-│
-└── README.md
+backend/
+└── src/main/java/com/campus/lostandfound/
+    ├── config/
+    ├── controller/
+    ├── dto/
+    ├── model/
+    ├── repository/
+    ├── security/
+    ├── service/
+    └── CampusLostFoundApplication.java
 ```
+
+### Frontend (React + TypeScript + Vite)
+
+```
+frontend/
+└── src/
+    ├── components/
+    ├── contexts/
+    ├── hooks/
+    ├── lib/
+    ├── pages/
+    │   ├── Dashboard.tsx
+    │   ├── Login.tsx
+    │   ├── Profile.tsx
+    │   ├── Register.tsx
+    │   └── ...
+    ├── App.tsx
+    └── main.tsx
+```
+
+---
+
+## Service
+
+Use
+
+```
+service/
+```
+
+Create or update
+
+```
+VerificationService.java
+```
+
+Responsibilities:
+
+* Upload ID image
+* Store image
+* Face detection
+* Face comparison
+* Liveness verification
+* Return confidence score
+* Update verification status
+
+---
+
+## DTO
+
+Inside
+
+```
+dto/
+```
+
+Create
+
+```
+FaceMatchRequest.java
+
+FaceMatchResponse.java
+
+VerificationStatusResponse.java
+```
+
+---
+
+
+## Student ID Upload
+
+Allow
+
+✔ JPG
+
+✔ PNG
+
+✔ JPEG
+
+Maximum
+
+5 MB
+
+Only ONE upload.
+
+If uploaded already:
+
+Show preview
+
+Disable upload
+
+Show
+
+"Replace ID Card"
+
+---
+
+
+---
+
+## Run AI Face Match
+
+Button
+
+Run AI Face Match
+
+Disabled until
+
+✔ ID uploaded
+
+✔ Selfie captured
+
+---
+
+
+## Verification Rules
+
+Score ≥ 85%
+
+Verified Student
+
+Green badge
+
+Score 70–84%
+
+Manual Review
+
+Yellow badge
+
+Below 70%
+
+Verification Failed
+
+Red badge
+
+---
+
+
+# Backend APIs
+
+POST
+
+```
+/api/verification/upload-id
+```
+
+POST
+
+```
+/api/verification/capture-selfie
+```
+
+POST
+
+```
+/api/verification/face-match
+```
+
+GET
+
+```
+/api/verification/status
+```
+
+---
+
+# Expected Flow
+
+1. User opens Profile page.
+
+2. Uploads Student ID.
+
+3. ID preview appears.
+
+4. Camera opens.
+
+5. User captures selfie.
+
+6. Selfie preview appears.
+
+7. User clicks **Run AI Face Match**.
+
+8. Liveness detection runs.
+
+9. AI compares both faces.
+
+10. Match score is calculated.
+
+11. Verification result is displayed.
+
+12. User profile is updated with a **Verified Student** badge if the score is 85% or higher.
+
+Ensure the implementation integrates cleanly with the existing Spring Boot backend and React frontend, follows the current architecture, and does not modify unrelated modules or break existing functionality.
 
 ---
 

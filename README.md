@@ -2,11 +2,6 @@
 
 A full-stack web application that helps students and staff report, search, and recover lost and found items within a campus environment.
 
-## 🚀 Live Demo
-
-* **Frontend:** *Add your Vercel URL here*
-* **Backend API:** *Add your Render URL here*
-
 ---
 
 ## 📌 Project Overview
@@ -406,10 +401,14 @@ Profile
 <img width="1470" height="831" alt="image" src="https://github.com/user-attachments/assets/1b5426c2-1b67-4944-b2de-b3cc873c6a81" />
 <img width="1470" height="879" alt="image" src="https://github.com/user-attachments/assets/dff7f6da-ca25-494b-af0c-8de9d6971367" />
 
+---
 
+## 👨‍💻 Authors
 
+### Bobbili Chandana Sri
+[![GitHub](https://img.shields.io/badge/GitHub-chandanasri26-181717?style=flat-square&logo=github)](https://github.com/chandanasri26)
 
-
+---
 
 # ⭐ Support
 
